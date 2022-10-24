@@ -4,6 +4,7 @@ jupyter_notebooks*
 .circleci*
 packages/regression_model
 *.env
+*/.vscode/
 *.log
 .git
 .gitignore
