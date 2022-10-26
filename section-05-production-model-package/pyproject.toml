@@ -5,6 +5,7 @@ requires = [
 ]
 build-backend = "setuptools.build_meta"
 
+
 [tool.pytest.ini_options]
 minversion = "2.0"
 addopts = "-rfEX -p pytester --strict-markers"
@@ -39,7 +40,7 @@ filterwarnings = [
 ]
 
 [tool.black]
-target-version = ['py37']
+target-version = ['py39']
 
 [tool.isort]
 profile = "black"
@@ -47,3 +48,4 @@ line_length = 100
 lines_between_sections = 1
 known_first_party = "sentry"
 skip = "migrations"
+
