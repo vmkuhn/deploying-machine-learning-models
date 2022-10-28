@@ -1,25 +1,35 @@
 [build-system]
 requires = [
-    "setuptools","setuptools_scm"
+    "poetry-core>=1.0.0"
 ]
-build-backend = "setuptools.build_meta"
+build-backend = "poetry.core.masonry.api"
 
-[project]
+[tool.poetry]
 name = "regression_model"
 description = "Example regression model package from Train In Data."
-authors = [ {name = "vmkuhn", email = "kuhn@kuhn-datascience.de"} ]
-requires-python = ">=3.6.0"
-version = "0.0.7"
-urls = { url = "https://github.com/trainindata/testing-and-monitoring-ml-deployments"}
-dependencies = [
-    "numpy>=1.20.0,<1.21.0",
-    "pandas>=1.3.5,<1.4.0",
-    "pydantic>=1.8.1,<1.9.0",
-    "scikit-learn>=1.0.2,<1.1.0",
-    "strictyaml>=1.3.2,<1.4.0",
-    "ruamel.yaml==0.16.12",
-    "feature-engine>=1.0.2,<1.1.0",
-    "joblib>=1.0.1,<1.1.0",
+authors = [ "vmkuhn <kuhn@kuhn-datascience.de>" ]
+version = "0.0.8"
+readme = "README.md"
+packages = [
+    { include = "regression_model" }
+]
+include = [
+    "*.txt",
+    "*.md",
+    "*.pkl",
+    "regression_model/datasets/train.csv",
+    "regression_model/datasets/test.csv",
+    "regression_model/trained_models/*.pkl",
+    "regression_model/VERSION",
+    "include regression_model/config.yml",
+]
+exclude = [
+    "tests/*",
+    "*.log",
+    "*.cfg",
+    "*/__pycache/*",
+    "*.pyc",
+    "*.pyo"
 ]
 classifiers = [
     "License :: OSI Approved :: MIT License",
@@ -32,20 +42,30 @@ classifiers = [
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
 ]
-#dynamic = ["version"]
 
-[tool.setuptools]
-include-package-data = true
 
-[tool.setuptools.packages.find]
-where = ["src"]  # list of folders that contain the packages (["."] by default)
-include = ["regression_model*"]  # package names should match these glob patterns (["*"] by default)
-exclude = ["regression_model.tests*"]  # exclude packages matching these glob patterns (empty by default)
-namespaces = true  # to disable scanning PEP 420 namespaces (true by default)
+#urls = { url = "https://github.com/trainindata/testing-and-monitoring-ml-deployments"}
+[tool.poetry.dependencies]
+numpy = "1.21.0"
+pandas= ">=1.3.5,<1.4.0"
+pydantic=">=1.8.1,<1.9.0"
+scikit-learn=">=1.0.2,<1.1.0"
+strictyaml=">=1.3.2,<1.4.0"
+ruamel-yaml="0.16.12"
+feature-engine=">=1.0.2,<1.1.0"
+joblib=">=1.0.1,<1.1.0"
+python=">=3.7.1"
 
-[tool.setuptools.exclude-package-data]
-mypkg = [".gitignore",".dockerignore","Dockerfile"]
 
+# #dynamic = ["version"]
+# [tool.setuptools]
+# include_package_data=false
+
+# [tool.setuptools.packages.find]
+# where = ["."]  # list of folders that contain the packages (["."] by default)
+# include = ["regression_model*"]  # package names should match these glob patterns (["*"] by default)
+# exclude = ["regression_model.tests*"]  # package names should match these glob patterns (["*"] by default)
+# namespaces = true  # to disable scanning PEP 420 namespaces (true by default)
 
 #[tool.setuptools.dynamic]
 #version = {attr= "regression_model.VERSION"}
