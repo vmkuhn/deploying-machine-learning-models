@@ -1,16 +1,15 @@
 from pathlib import Path
 from typing import Dict, List, Sequence
 
-from ruamel.yaml import YAML
-
-yaml = YAML(typ="safe")
-
 from pydantic import BaseModel
+from ruamel.yaml import YAML
 
 import regression_model
 
 # from strictyaml import YAML, load
 
+# Set yaml load to safe_load
+yaml = YAML(typ="safe")
 
 # Project Directories
 PACKAGE_ROOT = Path(regression_model.__file__).resolve().parent
