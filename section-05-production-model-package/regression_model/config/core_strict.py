@@ -1,16 +1,12 @@
 from pathlib import Path
 from typing import Dict, List, Sequence
 
-from ruamel.yaml import YAML
-
-yaml = YAML(typ="safe")
-
 from pydantic import BaseModel
 
+# import yaml
+from strictyaml import YAML, load
+
 import regression_model
-
-# from strictyaml import YAML, load
-
 
 # Project Directories
 PACKAGE_ROOT = Path(regression_model.__file__).resolve().parent
@@ -82,8 +78,8 @@ def fetch_config_from_yaml(cfg_path: Path = None) -> YAML:
         cfg_path = find_config_file()
 
     if cfg_path:
-        with open(cfg_path, "r") as stream:
-            parsed_config = yaml.load(stream)
+        with open(cfg_path, "r") as conf_file:
+            parsed_config = load(conf_file.read())
             return parsed_config
     raise OSError(f"Did not find config file at path: {cfg_path}")
 
@@ -95,8 +91,8 @@ def create_and_validate_config(parsed_config: YAML = None) -> Config:
 
     # specify the data attribute from the strictyaml YAML type.
     _config = Config(
-        app_config=AppConfig(**parsed_config),
-        model_config=ModelConfig(**parsed_config),
+        app_config=AppConfig(**parsed_config.data),
+        model_config=ModelConfig(**parsed_config.data),
     )
 
     return _config
